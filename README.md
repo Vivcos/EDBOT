@@ -87,6 +87,28 @@ end
 
 Save the file, and start the bot. The new event file will be detected and added into the bot automatically. 
 
+## Generating docs
+
+Install YARD.
+
+`gem install yard`
+
+In the top level folder, run:
+
+`yardoc`
+
+Your docs will be generated in a new folder, `doc/`.
+
+## Checking style with rubocop
+
+Install rubocop.
+
+`gem install rubocop`
+
+In the top level folder, run:
+
+`rubocop`
+
 ## Support
 
 Join us on the [Discord API server](https://discord.gg/0SBTUU1wZTWfFQL2)!
