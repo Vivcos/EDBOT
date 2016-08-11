@@ -1,0 +1,1 @@
+This is a template for a modular Discord chat bot using meew0's `discordrb`.
