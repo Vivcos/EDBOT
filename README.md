@@ -55,9 +55,10 @@ module Bot
     # Document your command
     # in some YARD comments here!
     module MyCommand
-    extend Discordrb::Commands::CommandContainer
-    command :my_command do |event|
-      # do discord things!
+      extend Discordrb::Commands::CommandContainer
+      command :my_command do |event|
+        # do discord things!
+      end
     end
   end
 end
@@ -77,9 +78,10 @@ module Bot
     # Document your event
     # in some YARD comments here!
     module MyEvent
-    extend Discordrb::EventContainer
-    user_join do |event|
-      # do discord things!
+      extend Discordrb::EventContainer
+      user_join do |event|
+        # do discord things!
+      end
     end
   end
 end
