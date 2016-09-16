@@ -1,3 +1,3 @@
 source 'https://rubygems.org'
 
-gem 'discordrb'
+gem 'discordrb', git: 'git://github.com/meew0/discordrb.git', branch: 'master'
