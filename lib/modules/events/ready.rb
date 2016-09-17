@@ -6,6 +6,8 @@ module Bot
       ready do |event|
         event.bot.profile.avatar = File.open(CONFIG.avatar)
         event.bot.game = CONFIG.game
+
+        event.bot.set_user_permission(CONFIG.owner, 4)
       end
     end
   end
