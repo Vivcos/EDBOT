@@ -21,6 +21,7 @@ module Powerbot
         break unless event.channel.name == CONFIG.general_channel
         event << "`#{event.user.display_name}'s face when #{caption.join(' ')}`"
         event << JSON.parse(RestClient.get('http://random.cat/meow'))['file']
+        event.message.delete
       end
 
       command(:cat_stats, help_available: false) do |event|
