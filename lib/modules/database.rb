@@ -1,7 +1,6 @@
 # Gems
 require 'sequel'
 
-# SQL Database
 module Powerbot
   # Powerbot's database
   module Database
