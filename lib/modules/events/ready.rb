@@ -1,4 +1,4 @@
-module Bot
+module Powerbot
   module DiscordEvents
     # This event is processed when the bot connects to Discord.
     module Ready
