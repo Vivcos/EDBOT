@@ -14,11 +14,10 @@ module Powerbot
       end
 
       command(:cat_stats, help_available: false) do |event|
-        unless event.channel.name == CONFIG.general_channel
-          messages = Database::Message.where(user_id: event.user.id,
-                                             message_content: 'pal.cat')
-          "You've summoned `#{messages}` cats 😺"
-        end
+        break unless event.channel.name == CONFIG.general_channel
+        messages = Database::Message.where(user_id: event.user.id,
+                                           message_content: 'pal.cat')
+        "You've summoned `#{messages}` cats 😺"
       end
     end
   end
