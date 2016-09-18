@@ -28,7 +28,7 @@ module Powerbot
         servers = all.collect(&:server_id).uniq
         servers.each do |server|
           data = where(server_id: server)
-          file = File.open("data/logs/#{data.first.server_name}.tsv", 'w')
+          file = File.open("data/logs/chatlog_#{data.first.server_name}.tsv", 'w')
           data = where(server_id: server).collect do |m|
             "#{m.timestamp}\t"\
             "#{m.server_name}\t"\
