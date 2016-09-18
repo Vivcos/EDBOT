@@ -17,7 +17,7 @@ module Powerbot
         break unless event.channel.name == CONFIG.general_channel
         messages = Database::Message.where(user_id: event.user.id,
                                            message_content: 'pal.cat').count
-        "You've summoned `#{messages}` cats 😺"
+        "You've summoned `#{messages}` cats #{[😻,😸,😼,🙀,😹].sample}"
       end
     end
   end
