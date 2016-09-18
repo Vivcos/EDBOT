@@ -9,7 +9,9 @@ module Powerbot
               rate_limit_message: 'You can summon more cats in %time%'\
                                   ' seconds.',
               help_available: false) do |event|
-        JSON.parse(RestClient.get('http://random.cat/meow'))['file']
+        unless event.channel.name == CONFIG.general_channel
+          JSON.parse(RestClient.get('http://random.cat/meow'))['file']
+        end
       end
     end
   end
