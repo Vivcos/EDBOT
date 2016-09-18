@@ -2,6 +2,7 @@
 require 'bundler/setup'
 require 'discordrb'
 require 'yaml'
+require 'rufus-scheduler'
 
 # The main bot module.
 module Powerbot
@@ -10,6 +11,9 @@ module Powerbot
 
   # Bot configuration
   CONFIG = Config.new
+
+  # Event scheduler
+  SCHEDULER = Rufus::Scheduler.new
 
   # Create the bot.
   # The bot is created as a constant, so that you
