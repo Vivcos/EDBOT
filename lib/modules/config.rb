@@ -1,4 +1,4 @@
-module Bot
+module Powerbot
   # Represents a bot configuration.
   class Config
     # Initializes a new config.
