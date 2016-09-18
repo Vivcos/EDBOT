@@ -7,6 +7,7 @@ module Powerbot
       command(:ping,
               description: 'checks if bot is alive',
               usage: "#{BOT.prefix}ping",
+              help_available: false,
               permission_level: 4) do |event|
         "`#{event.timestamp - Time.now} ms`"
       end
