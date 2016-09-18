@@ -16,7 +16,7 @@ module Powerbot
       command(:cat_stats, help_available: false) do |event|
         break unless event.channel.name == CONFIG.general_channel
         messages = Database::Message.where(user_id: event.user.id,
-                                           message_content: 'pal.cat')
+                                           message_content: 'pal.cat').count
         "You've summoned `#{messages}` cats 😺"
       end
     end
