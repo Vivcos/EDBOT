@@ -19,7 +19,7 @@ module Powerbot
       def post
         server = BOT.server(server_id)
         unless server.nil?
-          channel = server.channels.find { |c| c.name == 'mod-log' }
+          channel = server.channels.find { |c| c.name == CONFIG.mod_channel }
           log = []
           log << "**⚠ #{action}** | Case ##{id}"
           log << "**User:** #{BOT.user(offender_id).mention}"
