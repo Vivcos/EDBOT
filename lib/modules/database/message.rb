@@ -34,7 +34,7 @@ module Powerbot
             "#{m.server_name}\t"\
             "#{m.channel_name}\t"\
             "#{m.user_name}\t"\
-            "#{m.message_content}\t"\
+            "#{m.message_content.gsub("\n",'')}\t"\
             "#{m.attachment_url}"
           end.join("\n")
           file.write(data)
