@@ -25,9 +25,11 @@ module Powerbot
 
       command(:cat_stats, help_available: false) do |event|
         break unless event.channel.name == CONFIG.general_channel
-        messages = Database::Message.where(user_id: event.user.id,
-                                           message_content: 'pal.cat').count
-        "You've summoned `#{messages}` cats #{['😻','😸','😼','🙀','😹'].sample}"
+        messages =  Database::Message.where(user_id: event.user.id)
+        cat = messages.where(message_content: 'pal.cat').count
+        cat_mfw = messages.where(Sequel.ilike(:message_content, 'pal.cat_mfw%')).count
+        event << "You've summoned `#{cat + cat_mfw}` cats #{['😻','😸','😼','🙀','😹'].sample}"
+        event << "`cat: #{cat} | cat_mfw: #{cat}`"
       end
     end
   end
