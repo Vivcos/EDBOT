@@ -10,7 +10,7 @@ module Powerbot
                                   ' seconds.',
               help_available: false) do |event|
         break unless event.channel.name == CONFIG.general_channel
-        JSON.parse(RestClient.get('http://random.cat/meow'))['file']
+        cat
       end
 
       command(:cat_mfw,
@@ -20,7 +20,7 @@ module Powerbot
               help_available: false) do |event, *caption|
         break unless event.channel.name == CONFIG.general_channel
         event << "`#{event.user.display_name}'s face when #{caption.join(' ')}`"
-        event << JSON.parse(RestClient.get('http://random.cat/meow'))['file']
+        event << cat
         event.message.delete
       end
 
@@ -31,6 +31,12 @@ module Powerbot
         cat_mfw = messages.where(Sequel.ilike(:message_content, 'pal.cat_mfw%')).count
         "You've summoned `#{cat + cat_mfw}` cats #{['😻','😸','😼','🙀','😹'].sample}"\
         " `cat: #{cat} | cat_mfw: #{cat_mfw}`"
+      end
+
+      module_function
+
+      def cat
+        JSON.parse(RestClient.get('http://random.cat/meow'))['file'].gsub('.jpg','')
       end
     end
   end
