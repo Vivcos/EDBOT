@@ -1,7 +1,7 @@
 module Powerbot
   module DiscordEvents
     # This event is processed when the bot recieves a message.
-    module Ready
+    module Message
       extend Discordrb::EventContainer
       message do |event|
         server_id = event.server.nil? ? 0 : event.server.id
