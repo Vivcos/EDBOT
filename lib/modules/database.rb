@@ -3,6 +3,7 @@ require 'sequel'
 
 # SQL Database
 module Powerbot
+  # Powerbot's database
   module Database
     # Connect to database
     DB = Sequel.connect('sqlite://data/powerserver.db')
