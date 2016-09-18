@@ -18,6 +18,11 @@ module Powerbot
         BOT.channel(channel_id).message(message_id)
       end
 
+      # Was a message deleted?
+      def deleted?
+        message.nil?
+      end
+
       # Dump all messages to a file
       def self.dump
         file = File.open("data/logs/#{Time.now.strftime('%s')}.tsv", 'w')
