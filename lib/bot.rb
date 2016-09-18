@@ -4,7 +4,7 @@ require 'discordrb'
 require 'yaml'
 
 # The main bot module.
-module Bot
+module Powerbot
   # Load non-Discordrb modules
   Dir['lib/modules/*.rb'].each { |mod| load mod }
 

@@ -1,4 +1,4 @@
-module Bot
+module Powerbot
   module DiscordCommands
     # Command for evaluating Ruby code in an active bot.
     # Only the `event.user` with matching discord ID of `CONFIG.owner`

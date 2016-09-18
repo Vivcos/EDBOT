@@ -1,4 +1,4 @@
-module Bot
+module Powerbot
   module DiscordCommands
     # Responds with "Pong!".
     # This used to check if bot is alive

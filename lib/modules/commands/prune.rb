@@ -1,4 +1,4 @@
-module Bot
+module Powerbot
   module DiscordCommands
     # Prunes (deletes) messages from a channel.
     # The maximum is 100 messages at once.
