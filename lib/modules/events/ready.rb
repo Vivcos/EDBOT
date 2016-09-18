@@ -13,6 +13,7 @@ module Powerbot
 
         # Register nightly chat log dump
         SCHEDULER.cron '0 0 * * *' do
+          Discordrb::LOGGER.info 'dumping event logs'
           Database::Message.dump
         end
       end
