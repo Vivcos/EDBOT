@@ -14,7 +14,7 @@ module Powerbot
           user_id: event.user.id,
           user_name: event.user.distinct,
           message_id: event.message.id,
-          message_content: event.message.content
+          message_content: event.message.content,
           attachment_url: event.message.attachments.first.url
         )
       end
