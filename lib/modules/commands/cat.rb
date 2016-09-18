@@ -13,6 +13,14 @@ module Powerbot
           JSON.parse(RestClient.get('http://random.cat/meow'))['file']
         end
       end
+
+      command(:cat_stats, help_available: false) do |event|
+        unless event.channel.name == CONFIG.general_channel
+          messages = Database::Message.where(user_id: event.user.id,
+                                             message_content: 'pal.cat')
+          "You've summoned `#{messages}` cats 😺"
+        end
+      end
     end
   end
 end
