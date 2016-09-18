@@ -2,6 +2,7 @@
 require 'bundler/setup'
 require 'discordrb'
 require 'yaml'
+require 'json'
 require 'rufus-scheduler'
 
 # The main bot module.
