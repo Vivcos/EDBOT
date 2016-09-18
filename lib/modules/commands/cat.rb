@@ -13,6 +13,16 @@ module Powerbot
         JSON.parse(RestClient.get('http://random.cat/meow'))['file']
       end
 
+      command(:cat_mfw,
+              bucket: :cat,
+              rate_limit_message: 'You can summon more cats in %time%'\
+                                  ' seconds.',
+              help_available: false) do |event, *caption|
+        break unless event.channel.name == CONFIG.general_channel
+        event << "#{event.user.display_name}'s face when #{caption.join(' ')}'"
+        event << JSON.parse(RestClient.get('http://random.cat/meow'))['file']
+      end
+
       command(:cat_stats, help_available: false) do |event|
         break unless event.channel.name == CONFIG.general_channel
         messages = Database::Message.where(user_id: event.user.id,
