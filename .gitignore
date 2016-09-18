@@ -1,8 +1,9 @@
 # Discord config file
 /data/config.yaml
+/data/powerserver.db
+/data/logs
 /Gemfile.lock
 /run.sh
-/data/powerserver.db
 
 *.gem
 *.rbc
