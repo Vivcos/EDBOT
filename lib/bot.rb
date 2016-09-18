@@ -21,7 +21,8 @@ module Powerbot
   # can access the cache anywhere.
   BOT = Discordrb::Commands::CommandBot.new(application_id: CONFIG.app_id,
                                             token: CONFIG.token,
-                                            prefix: CONFIG.prefix)
+                                            prefix: CONFIG.prefix,
+                                            help_command: false)
 
   # Discord commands
   module DiscordCommands; end
