@@ -6,6 +6,8 @@ module Powerbot
       message do |event|
         server_id = event.server.nil? ? 0 : event.server.id
         server_name = event.server.nil? ? 'pm' : event.server.name
+        attachment = event.message.attachments.first
+        attachment_url = attachment.url unless attachment.nil?
         Database::Message.create(
           server_id: server_id,
           server_name: server_name,
@@ -15,7 +17,7 @@ module Powerbot
           user_name: event.user.distinct,
           message_id: event.message.id,
           message_content: event.message.content,
-          attachment_url: event.message.attachments.first.url
+          attachment_url: attachment_url
         )
       end
     end
