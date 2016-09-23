@@ -9,7 +9,7 @@ module Powerbot
               rate_limit_message: 'You can summon more cats in %time%'\
                                   ' seconds.',
               help_available: false) do |event|
-        break unless event.channel.name == CONFIG.general_channel
+        break unless event.channel.name == CONFIG.cat_channel
         cat
       end
 
@@ -18,14 +18,14 @@ module Powerbot
               rate_limit_message: 'You can summon more cats in %time%'\
                                   ' seconds.',
               help_available: false) do |event, *caption|
-        break unless event.channel.name == CONFIG.general_channel
+        break unless event.channel.name == CONFIG.cat_channel
         event << "`#{event.user.display_name}'s face when #{caption.join(' ')}`"
         event << cat
         event.message.delete
       end
 
       command(:cat_stats, help_available: false) do |event|
-        break unless event.channel.name == CONFIG.general_channel
+        break unless event.channel.name == CONFIG.cat_channel
         messages =  Database::Message.where(user_id: event.user.id)
         cat = messages.where(message_content: 'pal.cat').count
         cat_mfw = messages.where(Sequel.ilike(:message_content, 'pal.cat_mfw%')).count
