@@ -29,7 +29,7 @@ module Powerbot
         messages =  Database::Message.where(user_id: event.user.id)
         cat = messages.where(message_content: 'pal.cat').count
         cat_mfw = messages.where(Sequel.ilike(:message_content, 'pal.cat_mfw%')).count
-        "You've summoned `#{cat + cat_mfw}` cats #{['😻','😸','😼','🙀','😹'].sample}"\
+        "You've summoned `#{cat + cat_mfw}` cats #{%w(😻 😸 😼 🙀 😹).sample}"\
         " `cat: #{cat} | cat_mfw: #{cat_mfw}`"
       end
 
