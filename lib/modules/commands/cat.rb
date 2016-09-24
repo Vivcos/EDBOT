@@ -1,3 +1,5 @@
+require 'terminal-table'
+
 module Powerbot
   module DiscordCommands
     # Fetches a random cat picture
@@ -31,6 +33,30 @@ module Powerbot
         cat_mfw = messages.where(Sequel.ilike(:message_content, 'pal.cat_mfw%')).count
         "You've summoned `#{cat + cat_mfw}` cats #{%w(😻 😸 😼 🙀 😹).sample}"\
         " `cat: #{cat} | cat_mfw: #{cat_mfw}`"
+      end
+
+      command(:cat_board, help_available: false) do |event|
+        break unless event.user.id == CONFIG.owner
+        messages = Database::Message.all.clone
+        users = messages.collect(&:user_id).uniq
+        placing = 0
+        data = users.collect do |id|
+          message_set = messages.select { |m| m.user_id == id }
+          cat =     message_set.select { |m| m.message_content == 'pal.cat' }.count
+          cat_mfw = message_set.select { |m| m.message_content[/^pal.cat_mfw.*/] }.count
+          total = cat + cat_mfw
+          next if total.zero?
+          { name: messages.first.user_name, cat: cat, mfw: cat_mfw, total: total }
+        end.compact.sort_by { |h| h[:total] }
+           .reverse
+           .map! { |m| [placing += 1, m[:name], m[:cat], m[:mfw], m[:total]] }
+           .take(10)
+        headings = %w(# Name cat cat_mfw total)
+        event << "**Catreus Caturday Leaderboard** #{%w(😻 😸 😼 🙀 😹).sample}"\
+                 " `#{Time.now}`"
+        event << "```hs"
+        event << "#{Terminal::Table.new headings: headings, rows: data}"
+        event << "```"
       end
 
       module_function
