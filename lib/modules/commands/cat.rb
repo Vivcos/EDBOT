@@ -15,7 +15,7 @@ module Powerbot
         cat
       end
 
-      command(:cat_mfw,
+      command(:'cat.mfw',
               bucket: :cat,
               rate_limit_message: 'You can summon more cats in %time%'\
                                   ' seconds.',
@@ -26,7 +26,7 @@ module Powerbot
         event.message.delete
       end
 
-      command(:cat_stats, help_available: false) do |event|
+      command(:'cat.stats', help_available: false) do |event|
         break unless event.channel.name == CONFIG.cat_channel
         messages =  Database::Message.where(user_id: event.user.id)
         cat = messages.where(message_content: 'pal.cat').count
@@ -35,7 +35,7 @@ module Powerbot
         " `cat: #{cat} | cat_mfw: #{cat_mfw}`"
       end
 
-      command(:cat_board, help_available: false) do |event|
+      command(:'cat.board', help_available: false) do |event|
         break unless event.user.id == CONFIG.owner
         messages = Database::Message.all.clone
         users = messages.collect(&:user_id).uniq
