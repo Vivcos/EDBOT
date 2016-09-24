@@ -46,7 +46,7 @@ module Powerbot
           cat_mfw = message_set.select { |m| m.message_content[/^pal.cat_mfw.*/] }.count
           total = cat + cat_mfw
           next if total.zero?
-          { name: messages.first.user_name, cat: cat, mfw: cat_mfw, total: total }
+          { name: message_set.first.user_name, cat: cat, mfw: cat_mfw, total: total }
         end.compact.sort_by { |h| h[:total] }
            .reverse
            .map! { |m| [placing += 1, m[:name], m[:cat], m[:mfw], m[:total]] }
