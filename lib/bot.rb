@@ -19,7 +19,7 @@ module Powerbot
   # Create the bot.
   # The bot is created as a constant, so that you
   # can access the cache anywhere.
-  BOT = Discordrb::Commands::CommandBot.new(application_id: CONFIG.app_id,
+  BOT = Discordrb::Commands::CommandBot.new(client_id: CONFIG.client_id,
                                             token: CONFIG.token,
                                             prefix: CONFIG.prefix,
                                             help_command: false)

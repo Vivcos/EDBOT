@@ -1,6 +1,6 @@
 ---
-# Discord API application (client) ID
-app_id:
+# Discord client ID
+client_id:
 
 # Discord API bot user token
 token:
@@ -10,3 +10,4 @@ prefix:
 
 # ID of bot owner
 owner:
+
