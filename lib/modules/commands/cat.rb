@@ -43,7 +43,7 @@ module Powerbot
         data = users.collect do |id|
           message_set = messages.select { |m| m.user_id == id }
           cat =     message_set.select { |m| m.message_content == 'pal.cat' }.count
-          cat_mfw = message_set.select { |m| m.message_content[/^pal.cat_mfw.*/] }.count
+          cat_mfw = message_set.select { |m| m.message_content[/^pal\.cat\.mfw.*/] }.count
           total = cat + cat_mfw
           next if total.zero?
           { name: message_set.first.user_name, cat: cat, mfw: cat_mfw, total: total }
