@@ -22,7 +22,7 @@ In this first major update to PAL, we're introducing a help system that lets us 
 |`halp! [key] [text]` | creates a new help entry with `key` and `text`| `member` | `pal.halp! powerplay/undermining Undermine a system by doing xyz..`|
 |`halp* [ID]` | deletes a help entry by ID | `moderator` | `pal.halp* 12`|
 |`halp?? [ID]` | shows information (metadata) about the entry with `ID` | `member` | `halp?? 5`|
-|`halp~ [ID] [text]` | replaces the contents of a help entry with `ID` and `text` | `moderator` OR `author` | `pal.halp~ 12 No, you *actually* undermine by doing abc..`|
+|`halp~ [ID] [text]` | replaces the contents of a help entry with `ID` and `text` | `author` | `pal.halp~ 12 No, you *actually* undermine by doing abc..`|
 
 ## Help Entry Metadata
 
