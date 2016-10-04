@@ -6,7 +6,6 @@ Sequel.migration do
       String :author
       String :key
       String :text
-      TrueClass :channel_specific, default: true
       Integer :channel_id
     end
   end
