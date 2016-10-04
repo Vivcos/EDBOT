@@ -22,7 +22,7 @@ module Powerbot
   BOT = Discordrb::Commands::CommandBot.new(client_id: CONFIG.client_id,
                                             token: CONFIG.token,
                                             prefix: CONFIG.prefix,
-                                            help_command: false)
+                                            help_command: :halp)
 
   # Discord commands
   module DiscordCommands; end
