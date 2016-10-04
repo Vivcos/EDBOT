@@ -11,6 +11,14 @@ module Powerbot
         # Set owner permission level
         event.bot.set_user_permission(CONFIG.owner, 4)
 
+        # Set 'member' literal role to perm level 1
+        event.bot.servers.each do |_, server|
+          role = server.roles.find { |r| r.name == 'member' }
+          unless role.nil?
+            event.bot.set_role_permission(role.id, 1)
+          end
+        end
+
         # Register nightly chat log dump
         SCHEDULER.cron '0 0 * * *' do
           Discordrb::LOGGER.info 'dumping event logs'
