@@ -42,7 +42,7 @@ module Powerbot
         unless result.nil?
           result.composite
         else
-          'No entry found by that ID..'          
+          'No entry found by that ID..'
         end
       end
 
@@ -105,8 +105,12 @@ module Powerbot
         text = text.join(' ')
         result = Database::HelpEntry.where(channel_id: event.channel.id, id: id).first
         unless result.nil?
-          result.update(text: text)
-          event << 'Updated!'
+          if result.author_id == event.user.id
+            result.update(text: text)
+            event << 'Updated!'
+          else
+            event << 'You can only modify help entries that you\'ve authored.'
+          end
         else
           event << 'No entry found by that ID..'
         end
