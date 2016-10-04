@@ -17,7 +17,7 @@ In this first major update to PAL, we're introducing a help system that lets us 
 
 |command | action  | permission level | example|
 |---|---|---|---|
-|`halp? [key]` | recall a help entry with matching `key` | `member` | `pal.halp?powerplay/undermining`|
+|`halp? [key]` | recall a help entry with matching `key` | `member` | `pal.halp? powerplay/undermining`|
 |`halp# [ID]`| recall a specific help entry by ID | `member` | `pal.halp# 12` |
 |`halp! [key] [text]` | creates a new help entry with `key` and `text`| `member` | `pal.halp! powerplay/undermining Undermine a system by doing xyz..`|
 |`halp* [ID]` | deletes a help entry by ID | `moderator` | `pal.halp* 12`|
