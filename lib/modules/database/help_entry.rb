@@ -17,6 +17,18 @@ module Powerbot
       def composite
         "🔰 `#{key}:#{id}` - #{text}"
       end
+
+      # return a hash with some useful information resolved
+      def hash_exp
+        {
+          'id' => id,
+          'author' => author_name,
+          'timestamp' => timestamp,
+          'channel' => BOT.channel(channel_id).name,
+          'key' => key,
+          'text' => text
+        }
+      end
     end
   end
 end
