@@ -58,8 +58,7 @@ module Powerbot
                                            author_id: event.user.id,
                                            author_name: event.user.distinct,
                                            channel_id: event.channel.id)
-        "Created `halp` entry:\n"\
-        "#{entry.composite}"
+        "Created `halp` entry under `#{entry.key}`!"
       end
 
       # delete
