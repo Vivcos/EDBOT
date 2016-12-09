@@ -9,6 +9,10 @@ module Powerbot
         event.bot.game = CONFIG.game
 
         # Set owner permission level
+        # 1 - standard pledge commands
+        # 2 - registered traikoa user
+        # 3 - powerbot moderator
+        # 4 - powerbot admin
         event.bot.set_user_permission(CONFIG.owner, 4)
 
         # Set 'member' literal role to perm level 1
