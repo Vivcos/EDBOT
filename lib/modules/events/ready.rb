@@ -19,6 +19,11 @@ module Powerbot
           end
         end
 
+        # Prevent one-time schedulers from being
+        # scheduled again if we reconnect to Discord
+        next unless @init
+        @init = true
+
         # Register nightly chat log dump
         SCHEDULER.cron '0 0 * * *' do
           Discordrb::LOGGER.info 'dumping event logs'
