@@ -5,6 +5,27 @@ module Powerbot
     # Fetches a random cat picture
     module Cat
       extend Discordrb::Commands::CommandContainer
+
+      # A simple one-way counter
+      class Counter
+        attr_reader :data
+
+        def initialize
+          @data = {}
+        end
+
+        def count!(key)
+          @data[key] = @data[key].nil? ? 1 : @data[key] + 1
+        end
+
+        def count(key)
+          @data[key].nil? ? 0 : @data[key]
+        end
+      end
+
+      CatCounter    = Counter.new
+      CatMfwCounter = Counter.new
+
       bucket :cat, limit: 1, time_span: 30
       command(:cat,
               bucket: :cat,
@@ -12,7 +33,8 @@ module Powerbot
                                   ' seconds.',
               help_available: false) do |event|
         break unless event.channel.name == CONFIG.cat_channel
-        event.channel.send_message '', nil, cat_embed
+        CatCounter.count! event.user.id
+        event.channel.send_message '', nil, cat_embed(event.user)
       end
 
       command(:'cat.mfw',
@@ -21,6 +43,7 @@ module Powerbot
                                   ' seconds.',
               help_available: false) do |event, *caption|
         break unless event.channel.name == CONFIG.cat_channel
+        CatMfwCounter.count! event.user.id
         caption = caption.join ' '
         event.channel.send_message '', nil, cat_embed(event.user, "*#{event.user.display_name}'s face when #{caption}*")
         event.message.delete
@@ -70,6 +93,10 @@ module Powerbot
         e.author = { name: author.name, icon_url: author.avatar_url } if author
         e.description = text
         e.image = { url: cat }
+        e.footer = {
+          text: "cat: #{CatCounter.count author.id} /"\
+                " cat.mfw: #{%w(😻 😸 😼 🙀 😹).sample} #{CatMfwCounter.count author.id}"
+        }
         e
       end
     end
