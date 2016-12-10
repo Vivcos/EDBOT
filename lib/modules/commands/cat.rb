@@ -51,11 +51,10 @@ module Powerbot
 
       command(:'cat.stats', help_available: false) do |event|
         break unless event.channel.name == CONFIG.cat_channel
-        messages =  Database::Message.where(user_id: event.user.id)
-        cat = messages.where(message_content: 'pal.cat').count
-        cat_mfw = messages.where(Sequel.ilike(:message_content, 'pal.cat_mfw%')).count
-        "You've summoned `#{cat + cat_mfw}` cats #{%w(😻 😸 😼 🙀 😹).sample}"\
-        " `cat: #{cat} | cat_mfw: #{cat_mfw}`"
+        cat_total = CatCounter.count event.user.id
+        cat_mfw_total = CatMfwCounter.count event.user.id
+        "You've summoned `#{cat_total + cat_mfw_total}` cats #{%w(😻 😸 😼 🙀 😹).sample}"\
+        " `cat: #{cat_total} | cat_mfw: #{cat_mfw_total}`"
       end
 
       command(:'cat.board', help_available: false) do |event|
