@@ -59,20 +59,13 @@ module Powerbot
 
       command(:'cat.board', help_available: false) do |event|
         break unless event.user.id == CONFIG.owner
-        messages = Database::Message.all.clone
-        users = messages.collect(&:user_id).uniq
-        placing = 0
-        data = users.collect do |id|
-          message_set = messages.select { |m| m.user_id == id }
-          cat =     message_set.select { |m| m.message_content == 'pal.cat' }.count
-          cat_mfw = message_set.select { |m| m.message_content[/^pal\.cat\.mfw.*/] }.count
-          total = cat + cat_mfw
-          next if total.zero?
-          { name: message_set.first.user_name, cat: cat, mfw: cat_mfw, total: total }
-        end.compact.sort_by { |h| h[:total] }
-           .reverse
-           .map! { |m| [placing += 1, m[:name], m[:cat], m[:mfw], m[:total]] }
-           .take(10)
+        users = (CatCounter.data.keys + CatMfwCounter.data.keys).uniq.map { |id| event.bot.user(id).on event.server }
+        data = users.map.with_index do |u, i|
+          cat_total = CatCounter.count u.id
+          cat_mfw_total = CatMfwCounter.count u.id
+          total = cat_total + cat_mfw_total
+          [i + 1, u.display_name, cat_total, cat_mfw_total, total]
+        end
         headings = %w(# Name cat cat_mfw total)
         event << "**Catreus Caturday Leaderboard** #{%w(😻 😸 😼 🙀 😹).sample}"\
                  " `#{Time.now}`"
