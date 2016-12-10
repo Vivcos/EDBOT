@@ -29,8 +29,8 @@ module Powerbot
       bucket :cat, limit: 1, time_span: 30
       command(:cat,
               bucket: :cat,
-              rate_limit_message: 'You can summon more cats in %time%'\
-                                  ' seconds.',
+              rate_limit_message: 'You can summon more cats in %time% '\
+                                  'seconds.',
               help_available: false) do |event|
         break unless event.channel.name == CONFIG.cat_channel
         CatCounter.count! event.user.id
@@ -39,8 +39,8 @@ module Powerbot
 
       command(:'cat.mfw',
               bucket: :cat,
-              rate_limit_message: 'You can summon more cats in %time%'\
-                                  ' seconds.',
+              rate_limit_message: 'You can summon more cats in %time% '\
+                                  'seconds.',
               help_available: false) do |event, *caption|
         break unless event.channel.name == CONFIG.cat_channel
         CatMfwCounter.count! event.user.id
@@ -53,8 +53,8 @@ module Powerbot
         break unless event.channel.name == CONFIG.cat_channel
         cat_total = CatCounter.count event.user.id
         cat_mfw_total = CatMfwCounter.count event.user.id
-        "You've summoned `#{cat_total + cat_mfw_total}` cats #{%w(😻 😸 😼 🙀 😹).sample}"\
-        " `cat: #{cat_total} | cat_mfw: #{cat_mfw_total}`"
+        "You've summoned `#{cat_total + cat_mfw_total}` cats #{%w(😻 😸 😼 🙀 😹).sample} "\
+        "`cat: #{cat_total} | cat_mfw: #{cat_mfw_total}`"
       end
 
       command(:'cat.board', help_available: false) do |event|
@@ -86,8 +86,8 @@ module Powerbot
         e.description = text
         e.image = { url: cat }
         e.footer = {
-          text: "cat: #{CatCounter.count author.id} /"\
-                " cat.mfw: #{CatMfwCounter.count author.id}"
+          text: "cat: #{CatCounter.count author.id} | "\
+                "cat.mfw: #{CatMfwCounter.count author.id}"
         }
         e
       end
