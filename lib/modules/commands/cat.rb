@@ -12,7 +12,7 @@ module Powerbot
                                   ' seconds.',
               help_available: false) do |event|
         break unless event.channel.name == CONFIG.cat_channel
-        cat
+        event.channel.send_message '', nil, cat_embed
       end
 
       command(:'cat.mfw',
@@ -21,8 +21,8 @@ module Powerbot
                                   ' seconds.',
               help_available: false) do |event, *caption|
         break unless event.channel.name == CONFIG.cat_channel
-        event << "`#{event.user.display_name}'s face when #{caption.join(' ')}`"
-        event << cat
+        caption = caption.join ' '
+        event.channel.send_message '', nil, cat_embed(event.user, "*#{event.user.display_name}'s face when #{caption}*")
         event.message.delete
       end
 
@@ -63,6 +63,14 @@ module Powerbot
 
       def cat
         JSON.parse(RestClient.get('http://random.cat/meow'))['file'].gsub('.jpg','')
+      end
+
+      def cat_embed(author = nil, text = '')
+        e = Discordrb::Webhooks::Embed.new
+        e.author = { name: author.name, icon_url: author.avatar_url } if author
+        e.description = text
+        e.image = { url: cat }
+        e
       end
     end
   end
