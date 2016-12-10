@@ -87,7 +87,7 @@ module Powerbot
         e.image = { url: cat }
         e.footer = {
           text: "cat: #{CatCounter.count author.id} /"\
-                " cat.mfw: #{%w(😻 😸 😼 🙀 😹).sample} #{CatMfwCounter.count author.id}"
+                " cat.mfw: #{CatMfwCounter.count author.id}"
         }
         e
       end
