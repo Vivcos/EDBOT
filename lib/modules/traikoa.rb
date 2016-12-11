@@ -1,6 +1,29 @@
+require 'matrix'
+
 module Powerbot
   # Traikoa API
   module Traikoa
+    # Position in 3D space
+    class Position
+      attr_reader :x
+      attr_reader :y
+      attr_reader :z
+
+      def initialize(x, y, z)
+        @x = x
+        @y = y
+        @z = z
+      end
+
+      def distance(other)
+        (vector - other.vector).r
+      end
+
+      def vector
+        Vector[x, y, z]
+      end
+    end
+
     # REST
     module API
       API_URL = CONFIG.api_url
