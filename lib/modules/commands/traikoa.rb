@@ -32,7 +32,7 @@ module Powerbot
         )
         e.add_field(
           name: 'Stations',
-          value: sys.stations.map { |s| "#{s[:name]}, #{s[:distance]}ls [#{s[:pad_size]}] #{s[:planetary] ? 'planetary' : ''}" }.join("\n"),
+          value: sys.stations.map { |s| "[#{s[:pad_size]}] #{s[:name]}, #{s[:distance].nil? ? '?' : s[:distance]}ls #{s[:planetary] ? 'planetary' : ''}" }.join("\n"),
           inline: true
         ) if sys.stations.any?
         e.footer = { text: "id: #{sys.id} x: #{sys.x} y: #{sys.y} z: #{sys.z}" }
