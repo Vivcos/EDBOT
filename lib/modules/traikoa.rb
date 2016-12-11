@@ -41,6 +41,19 @@ module Powerbot
         @position = Position.new data[:position][:x], data[:position][:y], data[:position][:z]
       end
 
+      # Load a system from the API
+      # @param id [Integer] system ID
+      def self.load(id)
+        new API::System.get id
+      end
+
+      # Loads multiple systems from a search by name
+      # @param name [String] name of system
+      def self.search(name)
+        results = API::System.search name
+        results.map { |s| new s }
+      end
+
       def distance(other)
         position.distance other.position
       end
@@ -76,6 +89,10 @@ module Powerbot
 
         def resolve_id(id)
           get id
+        end
+
+        def search(name)
+          get 'search', { name: name }
         end
       end
 
