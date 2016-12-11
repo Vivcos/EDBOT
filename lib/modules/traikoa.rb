@@ -4,16 +4,10 @@ module Powerbot
   # Traikoa API
   module Traikoa
     # Position in 3D space
-    class Position
+    module Position
       attr_reader :x
       attr_reader :y
       attr_reader :z
-
-      def initialize(x, y, z)
-        @x = x
-        @y = y
-        @z = z
-      end
 
       def distance(other)
         (vector - other.vector).r
@@ -26,6 +20,8 @@ module Powerbot
 
     # A System in space
     class System
+      include Position
+
       # @return [Integer] system ID
       attr_reader :id
 
@@ -38,7 +34,9 @@ module Powerbot
       def initialize(data)
         @id = data[:id]
         @name = data[:name]
-        @position = Position.new data[:position][:x], data[:position][:y], data[:position][:z]
+        @x = data[:position][:x]
+        @y = data[:position][:y]
+        @z = data[:position][:z]
       end
 
       # Load a system from the API
@@ -54,14 +52,8 @@ module Powerbot
         results.map { |s| new s }
       end
 
-      # @return [Float] distance to other system
-      # @param [System] system to measure distance to
-      def distance(other)
-        position.distance other.position
-      end
-
       # @return [Array<System>] systems within specified radius
-      # @param radius [Integer, Float] radius to query 
+      # @param radius [Integer, Float] radius to query
       def bubble(radius = 15)
         results = API::System.bubble id, radius
         results[:systems].map { |s| System.new s }
