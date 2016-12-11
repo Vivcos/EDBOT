@@ -11,7 +11,7 @@ module Powerbot
   Dir['lib/modules/*.rb'].each { |mod| load mod }
 
   # Bot configuration
-  CONFIG = Config.new
+  CONFIG = OpenStruct.new YAML.load_file 'data/config.yaml'
 
   # Event scheduler
   SCHEDULER = Rufus::Scheduler.new
