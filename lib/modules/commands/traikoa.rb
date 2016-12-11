@@ -38,6 +38,31 @@ module Powerbot
         nil
       end
 
+      # Displays the shortest distance route
+      # between a collection of systems
+      command(:route,
+              permission_level: 1,
+              description: 'Get the shortest-distance route between a collection of systems',
+              usage: "#{BOT.prefix}route system_a, system_b...",) do |event, *names|
+        names = names.join(' ').split(',').map(&:strip)
+        next 'Please specify three or more systems.' unless names.count > 2
+
+        systems = names.map { |n| Powerbot::Traikoa::System.search(n).first }.compact
+
+        systems.sort! do |a, b|
+          next -1 if a == systems.first
+          distance_a = systems.map { |s| s.distance a unless a == s }.compact.min
+          distance_b = systems.map { |s| s.distance b unless b == s }.compact.min
+          distance_a <=> distance_b
+        end
+
+        systems.each_with_index do |s, i|
+          nex = systems[i + 1]
+          event << "`#{s.name} → #{nex.name} (#{s.distance(nex).round 2} ly)`" if nex
+        end
+        nil
+      end
+
       module_function
 
       def system_embed(sys)
