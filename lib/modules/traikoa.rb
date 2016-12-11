@@ -54,6 +54,8 @@ module Powerbot
         results.map { |s| new s }
       end
 
+      # @return [Float] distance to other system
+      # @param [System] system to measure distance to
       def distance(other)
         position.distance other.position
       end
