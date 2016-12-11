@@ -28,7 +28,7 @@ module Powerbot
       # @return [String] name
       attr_reader :name
 
-      # @return [Position] postion
+      # @return [Position] position
       attr_reader :position
 
       # @return [Integer] population
