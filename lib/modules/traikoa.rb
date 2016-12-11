@@ -57,6 +57,13 @@ module Powerbot
       def distance(other)
         position.distance other.position
       end
+
+      # @return [Array<System>] systems within specified radius
+      def bubble(radius = 15)
+        results = API::System.bubble id, radius
+        p results
+        results[:systems].map { |s| System.new s }
+      end
     end
 
     # REST
@@ -93,6 +100,10 @@ module Powerbot
 
         def search(name)
           get 'search', { name: name }
+        end
+
+        def bubble(id, radius)
+          get 'bubble', { id: id, radius: radius }
         end
       end
 
