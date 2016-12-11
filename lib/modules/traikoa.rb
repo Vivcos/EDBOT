@@ -138,6 +138,7 @@ module Powerbot
         end
 
         def search(name)
+          name = URI.encode name
           get 'search', { name: name }
         end
 
