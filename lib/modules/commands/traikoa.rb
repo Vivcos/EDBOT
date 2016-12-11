@@ -15,6 +15,26 @@ module Powerbot
         event.channel.send_message '', nil, system_embed(sys)
       end
 
+      command(:distance,
+              permission_level: 1,
+              description: 'Get the distance between one or more systems',
+              usage: "#{BOT.prefix}distance system_a, system_b...",) do |event, *names|
+        names = names.join(' ').split(',').map(&:strip)
+        next 'Please specify two or more systems.' unless names.count > 1
+
+        origin = Powerbot::Traikoa::System.search(names.shift).first
+        next 'Origin not found..' unless origin
+
+        systems = names.map { |n| Powerbot::Traikoa::System.search(n).first }
+
+        systems.each_with_index do |s, i|
+          event << "System not found: `#{names[i]}`" if s.nil?
+          next if s.nil?
+          event << "`#{origin.name} → #{s.name} : #{origin.distance(s).round 2} ly`"
+        end
+        nil
+      end
+
       module_function
 
       def system_embed(sys)
