@@ -4,6 +4,7 @@ module Powerbot
     module Traikoa
       extend Discordrb::Commands::CommandContainer
 
+      # Displays system metadata
       command(:info,
               permission_level: 1,
               description: 'Displays info about a system',
@@ -15,6 +16,8 @@ module Powerbot
         event.channel.send_message '', nil, system_embed(sys)
       end
 
+      # Displays a collection of distances to multiple systems
+      # from a singular origin point
       command(:distance,
               permission_level: 1,
               description: 'Get the distance between one or more systems',
