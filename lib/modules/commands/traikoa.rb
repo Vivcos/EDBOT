@@ -39,7 +39,8 @@ module Powerbot
 
       def system_embed(sys)
         e = Discordrb::Webhooks::Embed.new
-        e.title = "System data: #{sys.name}"
+        e.title = "🌟 #{sys.name}"
+        e.colour = 0xFCCB0D
         e.add_field(
           name: 'Info',
           value: "Population: #{sys.population}\n"\
