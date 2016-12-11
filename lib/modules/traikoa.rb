@@ -139,7 +139,7 @@ module Powerbot
 
         def search(name)
           name = URI.encode name
-          get 'search', { name: name }
+          get "search?name=#{name}"
         end
 
         def bubble(id, radius)
