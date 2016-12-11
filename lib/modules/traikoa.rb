@@ -61,6 +61,7 @@ module Powerbot
       end
 
       # @return [Array<System>] systems within specified radius
+      # @param radius [Integer, Float] radius to query 
       def bubble(radius = 15)
         results = API::System.bubble id, radius
         results[:systems].map { |s| System.new s }
