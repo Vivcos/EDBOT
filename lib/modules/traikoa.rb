@@ -79,19 +79,21 @@ module Powerbot
 
       # Load a system from the API
       # @param id [Integer] system ID
+      # @return [System]
       def self.load(id)
         new API::System.get id
       end
 
       # Loads multiple systems from a search by name
       # @param name [String] name of system
+      # @return [Array<System>] possible matches
       def self.search(name)
         results = API::System.search name
         results.map { |s| new s }
       end
 
-      # @return [Array<System>] systems within specified radius
       # @param radius [Integer, Float] radius to query
+      # @return [Array<System>] systems within specified radius
       def bubble(radius = 15)
         results = API::System.bubble id, radius
         results[:systems].map { |s| System.new s }
