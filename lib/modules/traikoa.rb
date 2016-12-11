@@ -96,6 +96,11 @@ module Powerbot
         results = API::System.bubble id, radius
         results[:systems].map { |s| System.new s }
       end
+
+      # @return [true, false] whether this system is exploited
+      def exploited?
+        @exploitations.any?
+      end
     end
 
     # REST
