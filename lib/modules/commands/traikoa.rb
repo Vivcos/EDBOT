@@ -19,7 +19,7 @@ module Powerbot
 
       def system_embed(sys)
         e = Discordrb::Webhooks::Embed.new
-        e.title = sys.name
+        e.title = "System data: #{sys.name}"
         e.add_field(
           name: 'Info',
           value: "Population: #{sys.population}\n"\
@@ -32,7 +32,7 @@ module Powerbot
         )
         e.add_field(
           name: 'Stations',
-          value: sys.stations.map { |s| "#{s[:name]}" }.join("\n"),
+          value: sys.stations.map { |s| "#{s[:name]}, #{s[:distance]}ls [#{s[:pad_size]}] #{s[:planetary] ? 'planetary' : ''}" }.join("\n"),
           inline: true
         ) if sys.stations.any?
         e.footer = { text: "id: #{sys.id} x: #{sys.x} y: #{sys.y} z: #{sys.z}" }
