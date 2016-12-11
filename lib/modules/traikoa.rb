@@ -24,6 +24,28 @@ module Powerbot
       end
     end
 
+    # A System in space
+    class System
+      # @return [Integer] system ID
+      attr_reader :id
+
+      # @return [String] name
+      attr_reader :name
+
+      # @return [Position] postion
+      attr_reader :position
+
+      def initialize(data)
+        @id = data[:id]
+        @name = data[:name]
+        @position = Position.new data[:position][:x], data[:position][:y], data[:position][:z]
+      end
+
+      def distance(other)
+        position.distance other.position
+      end
+    end
+
     # REST
     module API
       API_URL = CONFIG.api_url
@@ -34,7 +56,7 @@ module Powerbot
       # Generic GET request
       def get(path = '', params = {})
         response = RestClient.get "#{API_URL}/#{API_VERSION}/#{path}", params: params
-        JSON.parse response
+        JSON.parse response, symbolize_names: true
       end
 
       # Generic POST request
