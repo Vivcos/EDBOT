@@ -63,7 +63,6 @@ module Powerbot
       # @return [Array<System>] systems within specified radius
       def bubble(radius = 15)
         results = API::System.bubble id, radius
-        p results
         results[:systems].map { |s| System.new s }
       end
     end
