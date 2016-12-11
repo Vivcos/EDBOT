@@ -7,11 +7,11 @@ require 'rufus-scheduler'
 
 # The main bot module.
 module Powerbot
-  # Load non-Discordrb modules
-  Dir['lib/modules/*.rb'].each { |mod| load mod }
-
   # Bot configuration
   CONFIG = OpenStruct.new YAML.load_file 'data/config.yaml'
+
+  # Load non-Discordrb modules
+  Dir['lib/modules/*.rb'].each { |mod| load mod }
 
   # Event scheduler
   SCHEDULER = Rufus::Scheduler.new
