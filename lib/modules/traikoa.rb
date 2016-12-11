@@ -31,12 +31,50 @@ module Powerbot
       # @return [Position] postion
       attr_reader :position
 
+      # @return [Integer] population
+      attr_reader :population
+
+      # @return [String] allegiance
+      attr_reader :allegiance
+
+      # @return [String] security level
+      attr_reader :security
+
+      # @return [true, false] whether this system needs a permit
+      attr_reader :needs_permit
+      alias permit? needs_permit
+
+      # @return [Hash] station metadata
+      attr_reader :stations
+
+      # @return [Integer] cc_value
+      attr_reader :cc_value
+
+      # @return [true, false] whether this system is contested
+      attr_reader :contested
+      alias contested? contested
+
+      # @return [Hash] exploitation metadata
+      attr_reader :exploitations
+
+      # @return [Integer] id of this system as a control system, if applicable
+      attr_reader :control_system_id
+
       def initialize(data)
         @id = data[:id]
         @name = data[:name]
         @x = data[:position][:x]
         @y = data[:position][:y]
         @z = data[:position][:z]
+        @population = data[:population]
+        @allegiance = data[:allegiance]
+        @security = data[:security]
+        @needs_permit = data[:needs_permit]
+        @stations = data[:stations]
+        @cc_value = data[:cc_value]
+        @contested = data[:contested]
+        @exploitations = data[:exploitations]
+        @control_system_id = data[:control_system_id]
       end
 
       # Load a system from the API
