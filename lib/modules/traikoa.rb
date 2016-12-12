@@ -127,6 +127,11 @@ module Powerbot
         @exploitations = data[:exploitations]
       end
 
+      # @return [String] name of the control system
+      def name
+        @system.name
+      end
+
       # Load a control system from the API
       # @param [Integer] ID of the control system
       # @return [ControlSystem]
