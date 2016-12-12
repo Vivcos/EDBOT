@@ -137,9 +137,15 @@ module Powerbot
           get id
         end
 
-        def search(name)
-          name = URI.encode name
-          get "search?name=#{name}"
+        def search(data)
+          if data.is_a? String
+            data = URI.encode data
+            return get "search?name=#{data}"
+          end
+
+          if data.is_a? Array
+            return get 'search', ids: data
+          end
         end
 
         def bubble(id, radius)
@@ -158,6 +164,10 @@ module Powerbot
 
         def resolve_id(id)
           get id
+        end
+
+        def search(ids)
+          get 'search', ids: ids
         end
       end
 
