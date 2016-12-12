@@ -90,9 +90,10 @@ module Powerbot
         event.channel.send_embed do |e|
           e.author = { name: 'Bubble Analysis', icon_url: "#{BOT.profile.avatar_url}" }
 
-          e.description = "**Uncontrolled:** #{uncontrolled_cc}\n"\
-                          "**Controlled:** #{controlled_cc}\n"\
-                          "**Contested:** #{contested_cc}"
+          e.description = "Overview for **#{sys.name}**\n\n"\
+                          "Uncontrolled: #{uncontrolled_cc}\n"\
+                          "Controlled: #{controlled_cc}\n"\
+                          "Contested: #{contested_cc}"
 
           control_systems.each do |cs|
             systems = bubble.select { |s| s.exploitations.include? cs.id }
