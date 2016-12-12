@@ -110,6 +110,9 @@ module Powerbot
       # @return [Integer] control system ID
       attr_reader :id
 
+      # @return [Integer] power id
+      attr_reader :power_id
+
       # @return [System] host system for this control system
       attr_reader :system
 
@@ -122,6 +125,7 @@ module Powerbot
 
       def initialize(data)
         @id = data[:id]
+        @power_id = data[:power_id]
         @system = System.load data[:system_id]
         @control_data = data[:control_data]
         @exploitations = data[:exploitations]
