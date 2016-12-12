@@ -132,6 +132,13 @@ module Powerbot
         @system.name
       end
 
+      # @param [ControlSystem, System] what to measure distance to
+      # @return [Float] distance to other system
+      def distance(target)
+        target = target.system if target.is_a? ControlSystem
+        @system.distance target
+      end
+
       # Load a control system from the API
       # @param [Integer] ID of the control system
       # @return [ControlSystem]
