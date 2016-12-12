@@ -70,6 +70,8 @@ module Powerbot
         sys = Powerbot::Traikoa::System.search(name).first
         next 'System not found.' unless sys
 
+        event.channel.start_typing
+
         bubble = sys.bubble
 
         uncontrolled = bubble.select { |s| !s.exploitations.any? }
