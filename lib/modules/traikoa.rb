@@ -180,6 +180,10 @@ module Powerbot
           API.get "#{NAMESPACE}/#{path}", params
         end
 
+        def list
+          get
+        end
+
         def resolve_id(id)
           get id
         end
