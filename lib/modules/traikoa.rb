@@ -85,10 +85,10 @@ module Powerbot
       end
 
       # Loads multiple systems from a search by name
-      # @param name [String] name of system
+      # @param name [String, Array<Integer>] name of system, or array of IDs
       # @return [Array<System>] possible matches
-      def self.search(name)
-        results = API::System.search name
+      def self.search(data)
+        results = API::System.search data
         results.map { |s| new s }
       end
 
@@ -102,6 +102,44 @@ module Powerbot
       # @return [true, false] whether this system is exploited
       def exploited?
         @exploitations.any?
+      end
+    end
+
+    # A Control System controlled by a Power
+    class ControlSystem
+      # @return [Integer] control system ID
+      attr_reader :id
+
+      # @return [System] host system for this control system
+      attr_reader :system
+
+      # @return [Hash] volatile data related to this control system
+      attr_reader :control_data
+      alias data control_data
+
+      # @return [Hash] exploitation metadata
+      attr_reader :exploitations
+
+      def initialize(data)
+        @id = data[:id]
+        @system = System.load data[:system_id]
+        @control_data = data[:control_data]
+        @exploitations = data[:exploitations]
+      end
+
+      # Load a control system from the API
+      # @param [Integer] ID of the control system
+      # @return [ControlSystem]
+      def self.load(id)
+        new API::ControlSystem.resolve_id id
+      end
+
+      # Load multiple control systems from an array of IDs
+      # @param [Array<Integer>] IDs of control systems
+      # @return [Array<ControlSystem>]
+      def self.search(ids)
+        results = API::ControlSystem.search ids
+        results.map { |cs| ControlSystem.new cs }
       end
     end
 
