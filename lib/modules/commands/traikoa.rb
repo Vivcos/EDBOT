@@ -100,9 +100,9 @@ module Powerbot
           control_systems.each do |cs|
             systems = bubble.select { |s| s.exploitations.include? cs.id }
             e.add_field(
-              name: "#{cs.name} (#{systems.map(&:cc_value).reduce(:+)}, #{powers[cs.power_id - 1]})",
+              name: "#{cs.name} (#{systems.map(&:cc_value).compact.reduce(:+)}, #{powers[cs.power_id - 1]})",
               value: systems.map do |s|
-                       s.exploitations.count > 1 ? "#{s.name} (#{s.cc_value})*" : "#{s.name} (#{s.cc_value})"
+                       "#{s.name} (#{s.cc_value.nil? ? '?' : s.cc_value})#{s.exploitations.count > 1 ? '*' : '' }"
                      end.join("\n"),
               inline: true
             )
