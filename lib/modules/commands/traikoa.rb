@@ -122,7 +122,7 @@ module Powerbot
                    end.join("\n")
           ) unless uncontrolled.empty?
 
-          e.footer = { text: '* - this system isn\'t contested, but is overlapped by other systems' }
+          e.footer = { text: "* - overlapped | served in #{(Time.now - event.timestamp).round(4)}s" }
         end
       end
 
