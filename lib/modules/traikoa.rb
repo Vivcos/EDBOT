@@ -96,7 +96,7 @@ module Powerbot
       # @return [Array<System>] systems within specified radius
       def bubble(radius = 15)
         results = API::System.bubble id, radius
-        results[:systems].map { |s| System.new s }
+        results.map { |s| System.new s }
       end
 
       # @return [true, false] whether this system is exploited
