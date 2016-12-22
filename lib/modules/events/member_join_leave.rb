@@ -27,6 +27,7 @@ module Powerbot
           name: "#{join ? 'Member Joined' : 'Member Left'}",
           icon_url: "#{join ? 'http://emojipedia-us.s3.amazonaws.com/cache/72/7d/727d10a592ac37ab2844286e0cd70168.png' : 'http://emojipedia-us.s3.amazonaws.com/cache/32/9d/329df0e266f6e63ed5a4be23840b3513.png'}"
         }
+        e.color = join ? 0xa8ff99 : 0xff7777
         e.thumbnail = { url: user.avatar_url }
         e.description = "**#{user.distinct}** (#{user.mention})"
         e.footer = { text: user.id.to_s }
