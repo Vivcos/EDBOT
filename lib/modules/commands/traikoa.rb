@@ -126,6 +126,18 @@ module Powerbot
         end
       end
 
+      command(:register) do |event|
+        cmdr = Powerbot::Traikoa::Cmdr.load event.user.id
+        next '❌ You are already registered.' if cmdr
+        Powerbot::Traikoa::Cmdr.new(
+          {
+            discord_id: event.user.id,
+            discord_name: event.user.distinct
+          }
+        ).register!
+        '☑️'
+      end
+
       module_function
 
       def system_embed(sys)
