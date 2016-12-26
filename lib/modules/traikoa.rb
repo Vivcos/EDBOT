@@ -252,6 +252,18 @@ module Powerbot
           API.get "#{NAMESPACE}/#{path}", params
         end
 
+        def post(discord_id, discord_name, system_id = nil, power_id = nil)
+          API.post(
+            "#{NAMESPACE}",
+            {
+              discord_id: discord_id,
+              discord_name: discord_name,
+              system_id: system_id,
+              power_id: power_id
+            }
+          )
+        end
+
         def resolve_id(id)
           get id
         end
