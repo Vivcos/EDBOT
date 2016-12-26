@@ -159,6 +159,46 @@ module Powerbot
       end
     end
 
+    # Cmdr
+    class Cmdr
+      # @return [Integer] discord id
+      attr_reader :discord_id
+
+      # @return [String] discord name
+      attr_reader :discord_name
+
+      # @return [Integer] system id of where this cmdr is located, if known
+      attr_reader :system_id
+
+      # @return [Integer] ID of power this cmdr is pledged to, if known
+      attr_reader :power_id
+
+      def initialize(data)
+        @discord_id = data[:discord_id]
+        @discord_name = data[:discord_name]
+        @system_id = data[:system_id]
+        @power_id = data[:power_id]
+      end
+
+      # Load a Cmdr from the API
+      # @param discord_id [Integer] discord_id of the cmdr
+      # @return [Cmdr]
+      def self.load(discord_id)
+        new API::Cmdr.get discord_id
+      end
+
+      # Register (create) a new Cmdr
+      # in the API with this Cmdr's data
+      def register!
+        API::Cmdr.post(
+          @discord_id,
+          @discord_name,
+          @system_id,
+          @power_id
+        )
+      end
+    end
+
     # REST
     module API
       API_URL = CONFIG.api_url
