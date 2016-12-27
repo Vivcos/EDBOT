@@ -105,6 +105,50 @@ module Powerbot
       end
     end
 
+    # Power
+    class Power
+      # @return [Integer] id
+      attr_reader :id
+
+      # @return [String] name
+      attr_reader :name
+
+      # @return [String] superfaction this power is aligned with
+      attr_reader :superfaction
+
+      # @return [Array<Integer>] collection of control system ids this power controls
+      attr_reader :control_system_ids
+
+      # @return [Integer] raw cc income
+      attr_reader :income
+
+      # @return [Float] cc overhead costs
+      attr_reader :overhead
+
+      # @return [Integer] initial cc upkeep
+      attr_reader :default_upkeep
+
+      # @return [Integer] predicted cc balance
+      attr_reader :predicted
+
+      def initialize(data)
+        @id = data[:id]
+        @name = data[:name]
+        @superfaction = data[:superfaction]
+        @control_system_ids = data[:control_systems]
+        @income = data[:income]
+        @overhead = data[:overhead]
+        @default_upkeep = data[:default_upkeep]
+        @predicted = data[:predicted]
+      end
+
+      # Load a power from the API
+      # @param [Integer] id
+      def self.load(id)
+        new API::Power.get id
+      end
+    end
+
     # A Control System controlled by a Power
     class ControlSystem
       # @return [Integer] control system ID
