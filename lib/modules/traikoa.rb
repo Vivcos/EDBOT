@@ -147,6 +147,12 @@ module Powerbot
       def self.load(id)
         new API::Power.get id
       end
+
+      # Get a list of powers
+      # @return [Hash] hash structures resembling a Power
+      def self.list
+        API::Power.list
+      end
     end
 
     # A Control System controlled by a Power
