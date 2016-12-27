@@ -126,7 +126,10 @@ module Powerbot
         end
       end
 
-      command(:register) do |event|
+      command(:register,
+              description: 'Registers your discord account with PAL\'s CMDR network.',
+              usage: "#{BOT.prefix}register",
+              permission_level: 1) do |event|
         cmdr = Powerbot::Traikoa::Cmdr.load event.user.id
         next '❌ You are already registered.' if cmdr
         Powerbot::Traikoa::Cmdr.new(
