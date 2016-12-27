@@ -127,6 +127,7 @@ module Powerbot
         end
       end
 
+      # Registers a discord account for use with the API
       command(:register,
               description: 'Registers your discord account with PAL\'s CMDR network.',
               usage: "#{BOT.prefix}register",
