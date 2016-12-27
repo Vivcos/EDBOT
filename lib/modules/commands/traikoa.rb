@@ -62,6 +62,7 @@ module Powerbot
         nil
       end
 
+      # Displays CC statistics about a region of space
       command(:bubble,
               permission_level: 3,
               description: 'Gives you CC stats about a region of space',
