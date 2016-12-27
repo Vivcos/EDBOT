@@ -163,7 +163,10 @@ module Powerbot
       # @return [Integer] power id
       attr_reader :power_id
 
-      # @return [System] host system for this control system
+      # @return [Integer] id of this control system's host system
+      attr_reader :system_id
+
+      # @return [System] system that hosts this control system
       attr_reader :system
 
       # @return [Hash] volatile data related to this control system
@@ -173,12 +176,15 @@ module Powerbot
       # @return [Hash] exploitation metadata
       attr_reader :exploitations
 
-      def initialize(data)
+      def initialize(data, sys = nil)
         @id = data[:id]
         @power_id = data[:power_id]
-        @system = System.load data[:system_id]
+        @system_id = data[:system_id]
         @control_data = data[:control_data]
         @exploitations = data[:exploitations]
+
+        raise 'Tried to attach a control system to a system with mismatched id!' if sys.id != @system_id
+        @system = sys
       end
 
       # @return [String] name of the control system
