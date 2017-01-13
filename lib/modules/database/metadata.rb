@@ -4,6 +4,10 @@ module Powerbot
       def self.from_hash(snowflake, data)
         create snowflake: snowflake, data: data.to_json
       end
+
+      def read
+        JSON.parse data
+      end
     end
 
     Metadata.unrestrict_primary_key
