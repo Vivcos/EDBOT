@@ -8,6 +8,10 @@ module Powerbot
       def read
         JSON.parse data
       end
+
+      def write(hash)
+        update data: hash.to_json
+      end
     end
 
     Metadata.unrestrict_primary_key
