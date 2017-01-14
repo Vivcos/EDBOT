@@ -54,6 +54,22 @@ module Powerbot
 
       module_function
 
+      def update_star(star)
+        star_string = "#{STAR_EMOJI} **#{star.rep}** #{star.starred_message_channel.mention}"
+
+        if star.message
+          star.message.edit(
+            star_string,
+            star_embed(star)
+          )
+        else
+          star.channel.send_embed(
+            star_string,
+            star_embed(star)
+          )
+        end
+      end
+
       def star_embed(star)
         message = star.starred_message
         author = message.author
