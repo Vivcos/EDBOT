@@ -3,6 +3,10 @@ module Powerbot
     class StarMessage < Sequel::Model
       one_to_many :stars
 
+      def before_destroy
+        message.delete
+      end
+
       def starred_message
         BOT.channel(starred_channel_id).message(starred_message_id)
       end
