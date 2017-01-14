@@ -1,6 +1,13 @@
 module Powerbot
   module Database
     class Feed < Sequel::Model
+      def before_create
+        role         = server.create_role
+        role.name    = name
+        role.packed  = 0
+        self.role_id = role.id
+      end
+
       def server
         BOT.server server_id
       end
