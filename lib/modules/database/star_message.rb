@@ -22,6 +22,10 @@ module Powerbot
       def starred_by?(user_id)
         !!star_by(user_id)
       end
+
+      def dead?
+        stars.count.zero?
+      end
     end
 
     class Star < Sequel::Model
