@@ -4,7 +4,7 @@ module Powerbot
       one_to_many :stars
 
       def starred_message
-        BOT.channel(starred_channel_id, starred_message_id)
+        BOT.channel(starred_channel_id).message(starred_message_id)
       end
 
       def message
