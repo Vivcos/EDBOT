@@ -21,7 +21,7 @@ module Powerbot
       end
 
       def channel
-        server.channel channel_id
+        BOT.channel channel_id
       end
     end
   end
