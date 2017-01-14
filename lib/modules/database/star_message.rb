@@ -15,8 +15,12 @@ module Powerbot
         starred_message_channel.message(starred_message_id)
       end
 
+      def channel
+        BOT.channel(channel_id)
+      end
+
       def message
-        BOT.channel(channel_id).message(message_id)
+        channel.message(message_id)
       end
 
       def rep
