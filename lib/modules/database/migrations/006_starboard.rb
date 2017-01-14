@@ -4,6 +4,7 @@ Sequel.migration do
       primary_key :id
       Integer :channel_id, null: false
       Integer :message_id, unique: true, null: false
+      Integer :star_message_id, unique: true, null: false
     end
 
     create_table(:stars) do
