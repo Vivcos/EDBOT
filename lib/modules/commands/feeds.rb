@@ -4,7 +4,9 @@ module Powerbot
       extend Discordrb::Commands::CommandContainer
 
       # List feeds
-      command(:feeds) do |event|
+      command(:feeds,
+              description: 'List available feeds',
+              usage: "#{BOT.prefix}feeds") do |event|
         feeds = Database::Feed.where(server_id: event.server.id).all
         next 'No available feeds..' if feeds.empty?
         event.channel.send_embed(
@@ -17,7 +19,10 @@ module Powerbot
       end
 
       # Create feed
-      command(:create_feed) do |event, *name|
+      command(:create_feed,
+              description: 'Create a new feed bound to THIS channel.',
+              usage: "#{BOT.prefix}create_feed memes",
+              permission_level: 3) do |event, *name|
         name = name.join ' '
 
         maybe_existing_feed = Database::Feed.find server_id: event.server.id, name: name
@@ -33,7 +38,10 @@ module Powerbot
       end
 
       # Delete a feed
-      command(:delete_feed) do |event, *name|
+      command(:delete_feed,
+              description: 'Deletes a feed and its associated role',
+              usage: "#{BOT.prefix}delete_feed memes",
+              permission_level: 3) do |event, *name|
         name = name.join ' '
 
         maybe_existing_feed = Database::Feed.find server_id: event.server.id, name: name
@@ -45,7 +53,10 @@ module Powerbot
       end
 
       # Subscribe to feed
-      command(:sub) do |event, *name|
+      command(:sub,
+              description: 'Subscribes you to recieve mentions from this feed',
+              usage: "#{BOT.prefix}sub memes",
+              permission_level: 1) do |event, *name|
         name = name.join ' '
 
         maybe_existing_feed = Database::Feed.find server_id: event.server.id, name: name
@@ -62,7 +73,10 @@ module Powerbot
       end
 
       # Unsubscribe from feed
-      command(:unsub) do |event, *name|
+      command(:unsub,
+              description: 'Unsubscribes you from a feed',
+              usage: "#{BOT.prefix}unsub memes",
+              permission_level: 1) do |event, *name|
         name = name.join ' '
 
         maybe_existing_feed = Database::Feed.find server_id: event.server.id, name: name
@@ -79,7 +93,10 @@ module Powerbot
       end
 
       # Push content to a feed
-      command(:push) do |event|
+      command(:push,
+              description: 'Publishes content to a feed',
+              usage: "#{BOT.prefix}push feed name | title | content",
+              permission_level: 3) do |event|
         args = event.message.content[8..-1]
                     .split('|')
                     .map(&:strip)
