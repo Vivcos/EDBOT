@@ -45,6 +45,19 @@ module Powerbot
 
         maybe_existing_star.destroy if maybe_existing_star.rep == 1
       end
+
+      module_function
+
+      def star_embed(star)
+        message = star.starred_message
+        author = message.author
+        Discordrb::Webhooks::Embed.new(
+          description: starred_message.content,
+          author: { name: author.display_name, icon_url: author.avatar_url },
+          timestamp: message.timestamp,
+          color: 0xffff00
+        )
+      end
     end
   end
 end
