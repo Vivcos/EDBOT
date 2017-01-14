@@ -20,6 +20,11 @@ module Powerbot
 
           next if event.message.author == event.user
 
+          next unless Database::Metadata[event.channel.id]&.read['allow_stars']
+
+          star_channel_id = Database::Metadata[event.server.id]&.read['star_channel_id']
+          next unless star_channel_id
+
           star_message = Database::StarMessage.create(
             starred_channel_id: event.channel.id,
             starred_message_id: event.message.id
