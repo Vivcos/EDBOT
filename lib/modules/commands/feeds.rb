@@ -128,7 +128,10 @@ module Powerbot
           Discordrb::Webhooks::Embed.new(
             description: content,
             color: role.color.combined,
-            footer: { text: event.user.distinct, icon_url: event.user.avatar_url },
+            footer: {
+              text: "#{event.user.distinct} [use 'pal.unsub #{maybe_existing_feed.name}' to unsub]",
+              icon_url: event.user.avatar_url
+            },
             timestamp: Time.now
           )
         )
