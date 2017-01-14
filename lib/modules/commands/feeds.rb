@@ -62,7 +62,20 @@ module Powerbot
       end
 
       # Unsubscribe from feed
-      command(:unsub) do |event|
+      command(:unsub) do |event, *name|
+        name = name.join ' '
+
+        maybe_existing_feed = Database::Feed.find server_id: event.server.id, name: name
+        next 'Feed not found. Use `pal.feeds` for a list of feeds.' unless maybe_existing_feed
+
+        role = maybe_existing_feed.role
+
+        if event.user.role? role
+          event.user.remove_role role
+          '👌'
+        else
+          'You\'re not subscribed to that feed.'          
+        end
       end
 
       # Push content to a feed
