@@ -7,8 +7,12 @@ module Powerbot
         message.delete
       end
 
+      def starred_message_channel
+        BOT.channel(starred_channel_id)
+      end
+
       def starred_message
-        BOT.channel(starred_channel_id).message(starred_message_id)
+        starred_message_channel.message(starred_message_id)
       end
 
       def message
