@@ -4,7 +4,7 @@ module Powerbot
       one_to_many :stars
 
       def before_destroy
-        message.delete
+        message&.delete
       end
 
       def starred_message_channel
