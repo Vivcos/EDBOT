@@ -8,6 +8,10 @@ module Powerbot
         self.role_id = role.id
       end
 
+      def before_destroy
+        role.delete
+      end
+
       def server
         BOT.server server_id
       end
