@@ -74,7 +74,7 @@ module Powerbot
           event.user.remove_role role
           '👌'
         else
-          'You\'re not subscribed to that feed.'          
+          'You\'re not subscribed to that feed.'
         end
       end
 
