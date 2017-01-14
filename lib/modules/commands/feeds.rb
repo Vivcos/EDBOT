@@ -17,7 +17,19 @@ module Powerbot
       end
 
       # Create feed
-      command(:create_feed) do |event|
+      command(:create_feed) do |event, *name|
+        name = name.join ' '
+
+        maybe_existing_feed = Database::Feed.find server_id: event.server.id, name: name
+        next 'Feed already exists!' if maybe_existing_feed
+
+        Database::Feed.create(
+          server_id: event.server.id,
+          channel_id: event.channel.id,
+          name: name
+        )
+
+        '👌'
       end
 
       # Delete a feed
