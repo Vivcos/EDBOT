@@ -33,7 +33,15 @@ module Powerbot
       end
 
       # Delete a feed
-      command(:delete_feed) do |event|
+      command(:delete_feed) do |event, *name|
+        name = name.join ' '
+
+        maybe_existing_feed = Database::Feed.find server_id: event.server.id, name: name
+        next 'Feed not found..' unless maybe_existing_feed
+
+        maybe_existing_feed.destroy
+
+        '👌'
       end
 
       # Subscribe to feed
