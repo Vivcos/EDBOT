@@ -4,6 +4,7 @@ Sequel.migration do
       primary_key :id
       Integer :channel_id, null: false
       Integer :role_id, unique: true, null: false
+      String :name, null: false
     end
   end
 
