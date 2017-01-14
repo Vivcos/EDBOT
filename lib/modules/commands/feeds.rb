@@ -107,16 +107,22 @@ module Powerbot
                     .split('|')
                     .map(&:strip)
 
-        next 'Not enough arguments. Format: `pal.push feed | title | content`' unless args.count == 3
+        next 'Not enough arguments. Format: `pal.push feed | title | content`' if args.count < 3
 
         name    = args.shift
         title   = args.shift
         content = args.shift
 
+        fields = []
+        if !args.empty?
+          fields = args.map { |a| Discordrb::Webhooks::EmbedField.new name: "\u200b", value: a }
+        end
+
         maybe_existing_feed = Database::Feed.find server_id: event.server.id, name: name
         next 'Feed not found. Use `pal.feeds` for a list of feeds.' unless maybe_existing_feed
         next "Title too long (#{content.length} / 100)" if title.length > 100
         next 'Content too long' if content.length > 2048
+        next "Too many fields (#{fields.count} / 25)" if fields.count > 25
 
         role    = maybe_existing_feed.role
         channel = maybe_existing_feed.channel
@@ -132,6 +138,7 @@ module Powerbot
               text: "#{event.user.distinct} [use 'pal.unsub #{maybe_existing_feed.name}' to unsub]",
               icon_url: event.user.avatar_url
             },
+            fields: fields,
             timestamp: Time.now
           )
         )
