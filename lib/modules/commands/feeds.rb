@@ -5,6 +5,15 @@ module Powerbot
 
       # List feeds
       command(:feeds) do |event|
+        feeds = Database::Feed.where(server_id: event.server.id).all
+        next 'No available feeds..' if feeds.empty?
+        event.channel.send_embed(
+          'Feeds available in this server:',
+          Discordrb::Webhooks::Embed.new(
+            description: feeds.map(&:name).join("\n"),
+            footer: { text: 'use pal.sub [feed name] to sub to a feed'}
+          )
+        )
       end
 
       # Create feed
