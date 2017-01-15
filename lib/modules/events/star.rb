@@ -16,14 +16,18 @@ module Powerbot
 
         if maybe_existing_star
           maybe_existing_star.add_star user_id: event.user.id unless maybe_existing_star.starred_by?(event.user)
+          update_star(maybe_existing_star)
         else
 
           next if event.message.author == event.user
 
-          next unless Database::Metadata[event.channel.id]&.read['allow_stars']
+          channel_options = Database::Metadata[event.channel.id]&.read
+          server_options = Database::Metadata[event.channel.server.id]&.read
 
-          star_channel_id = Database::Metadata[event.server.id]&.read['star_channel_id']
-          next unless star_channel_id
+          next unless channel_options && server_options
+          next unless channel_options['allow_stars'] && server_options['star_channel_id']
+
+          star_channel_id = Database::Metadata[event.channel.server.id]&.read['star_channel_id']
 
           star_message = Database::StarMessage.create(
             starred_channel_id: event.channel.id,
@@ -32,6 +36,8 @@ module Powerbot
           )
 
           star_message.add_star user_id: event.user.id
+
+          update_star(star_message)
         end
       end
 
@@ -49,13 +55,15 @@ module Powerbot
         user_star = maybe_existing_star.star_by(event.user.id)
         user_star.destroy if user_star
 
-        maybe_existing_star.destroy if maybe_existing_star.rep == 1
+        next maybe_existing_star.destroy if maybe_existing_star.rep == 1
+        update_star Database::StarMessage[maybe_existing_star.id]
       end
 
       module_function
 
       def update_star(star)
-        star_string = "#{STAR_EMOJI} **#{star.rep}** #{star.starred_message_channel.mention}"
+        rep = star.rep > 1 ? "**#{star.rep}**" : ''
+        star_string = "#{STAR_EMOJI} #{rep} #{star.starred_message_channel.mention}"
 
         if star.message
           star.message.edit(
@@ -63,10 +71,12 @@ module Powerbot
             star_embed(star)
           )
         else
-          star.channel.send_embed(
+          message = star.channel.send_embed(
             star_string,
             star_embed(star)
           )
+
+          star.update message_id: message.id
         end
       end
 
@@ -74,7 +84,7 @@ module Powerbot
         message = star.starred_message
         author = message.author
         Discordrb::Webhooks::Embed.new(
-          description: starred_message.content,
+          description: message.content,
           author: { name: author.display_name, icon_url: author.avatar_url },
           timestamp: message.timestamp,
           color: 0xffff00
