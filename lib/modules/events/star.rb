@@ -87,6 +87,7 @@ module Powerbot
           description: message.content,
           author: { name: author.display_name, icon_url: author.avatar_url },
           timestamp: message.timestamp,
+          footer: { text: "id: #{message.id}" },
           color: 0xffff00
         )
       end
