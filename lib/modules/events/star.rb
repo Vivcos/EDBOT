@@ -100,7 +100,7 @@ module Powerbot
           author: { name: author.display_name, icon_url: author.avatar_url },
           timestamp: message.timestamp,
           footer: { text: "id: #{message.id}" },
-          color: 0xffff00
+          color: 0xf7a631
         )
 
         e.image = { url: message.attachments.first.url } if message.attachments.any?
