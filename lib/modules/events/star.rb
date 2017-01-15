@@ -95,13 +95,17 @@ module Powerbot
       def star_embed(star)
         message = star.starred_message
         author = message.author
-        Discordrb::Webhooks::Embed.new(
+        e = Discordrb::Webhooks::Embed.new(
           description: message.content,
           author: { name: author.display_name, icon_url: author.avatar_url },
           timestamp: message.timestamp,
           footer: { text: "id: #{message.id}" },
           color: 0xffff00
         )
+
+        e.image = { url: message.attachments.first.url } if message.attachments.any?
+
+        e
       end
     end
   end
