@@ -59,6 +59,18 @@ module Powerbot
         update_star Database::StarMessage[maybe_existing_star.id]
       end
 
+      # Edit a starred message
+      message_edit do |event|
+        maybe_existing_star = Database::StarMessage.find(
+          starred_channel_id: event.channel.id,
+          starred_message_id: event.message.id
+        )
+
+        next unless maybe_existing_star
+
+        update_star maybe_existing_star
+      end
+
       module_function
 
       def update_star(star)
