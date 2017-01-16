@@ -145,7 +145,13 @@ module Powerbot
 
         role.mentionable = false
 
-        '👌'
+        m = event.respond '👌'
+
+        sleep 3
+
+        event.channel.delete_messages [m, event.message]
+
+        nil
       end
     end
   end
