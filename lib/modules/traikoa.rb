@@ -183,8 +183,8 @@ module Powerbot
         @control_data = data[:control_data]
         @exploitations = data[:exploitations]
 
-        raise 'Tried to attach a control system to a system with mismatched id!' if sys.id != @system_id
-        @system = sys
+        @system = sys || System.load(@system_id)
+        raise 'Tried to attach a control system to a system with mismatched id!' if @system.id != @system_id
       end
 
       # @return [String] name of the control system
