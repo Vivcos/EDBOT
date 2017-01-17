@@ -25,6 +25,18 @@ module Powerbot
 
         '🆗'
       end
+
+      command(:who_starred, help_available: false) do |event, id|
+        maybe_star = Database::StarMessage.find starred_message_id: id.to_i
+
+        next 'Message not found or not starred..' unless maybe_star
+
+        users = maybe_star.stars.map do |s|
+          BOT.users[s.user_id]
+        end.compact
+
+        users.map(&:name).join ', '
+      end
     end
   end
 end
