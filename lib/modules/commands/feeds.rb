@@ -139,7 +139,7 @@ module Powerbot
               icon_url: event.user.avatar_url
             },
             fields: fields,
-            timestamp: Time.now
+            timestamp: ::Time.now
           )
         )
 

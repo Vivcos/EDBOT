@@ -9,7 +9,7 @@ module Powerbot
               usage: "#{BOT.prefix}ping",
               help_available: false,
               permission_level: 4) do |event|
-        "`#{event.timestamp - Time.now} ms`"
+        "`#{::Time.now - event.timestamp} ms`"
       end
     end
   end

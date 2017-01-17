@@ -123,7 +123,7 @@ module Powerbot
                    end.join("\n")
           ) unless uncontrolled.empty?
 
-          e.footer = { text: "* - overlapped | served in #{(Time.now - event.timestamp).round(4)}s" }
+          e.footer = { text: "* - overlapped | served in #{(::Time.now - event.timestamp).round(4)}s" }
         end
       end
 
