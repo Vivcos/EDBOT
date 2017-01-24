@@ -37,6 +37,20 @@ module Powerbot
 
         users.map(&:name).join ', '
       end
+
+      command(:star,
+              description: 'adds a star to a starred message by ID',
+              usage: "#{BOT.prefix}.star <message ID>") do |event, id|
+        maybe_star = Database::StarMessage.find starred_message_id: id.to_i
+
+        next 'Message not found or not starred..' unless maybe_star
+
+        maybe_star.add_star user_id: event.user.id unless maybe_star.starred_by? event.user.id
+
+        DiscordEvents::Star.update_star maybe_star
+
+        event.message.delete
+      end
     end
   end
 end
