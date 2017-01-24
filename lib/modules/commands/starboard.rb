@@ -44,8 +44,9 @@ module Powerbot
         maybe_star = Database::StarMessage.find starred_message_id: id.to_i
 
         next 'Message not found or not starred..' unless maybe_star
+        next 'You can only star a message once.' if maybe_star.starred_by? event.user.id
 
-        maybe_star.add_star user_id: event.user.id unless maybe_star.starred_by? event.user.id
+        maybe_star.add_star user_id: event.user.id
 
         DiscordEvents::Star.update_star maybe_star
 
