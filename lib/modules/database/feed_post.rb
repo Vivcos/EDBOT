@@ -12,7 +12,7 @@ module Powerbot
       end
 
       def tagline
-        "🛰️ #{role.mention} **| #{title}**"
+        "🛰️ #{feed.role.mention} **| #{title}**"
       end
 
       def update_post
