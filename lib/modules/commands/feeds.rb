@@ -134,6 +134,32 @@ module Powerbot
 
         nil
       end
+
+      # Edit a feed post
+      command(:edit,
+              description: 'Edits an existing feed post',
+              usage: "#{BOT.prefix}edit 1 new content",
+              permission_level: 3) do |event, post_id, *content|
+        post_id = post_id.delete('#').to_i
+
+        content = content.join ' '
+        next 'Content too long' if content.length > 2048
+        next "Too many fields (#{fields.count} / 25)" if content.count('|') > 25
+
+        post = Database::FeedPost.find id: post_id
+        next 'Post not found with that ID..' unless post
+
+        post.update content: content
+        post.update_post
+
+        m = event.respond '👌'
+
+        sleep 3
+
+        event.channel.delete_messages [m, event.message]
+
+        nil
+      end
     end
   end
 end
