@@ -14,7 +14,7 @@ module Powerbot
       def parse_content
         data = content.split '|'
 
-        fields = data[2..-1].map do |f|
+        fields = data.map do |f|
           Discordrb::Webhooks::Field.new(
             name: "\u200b",
             value: f
