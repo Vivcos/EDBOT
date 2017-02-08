@@ -140,18 +140,28 @@ module Powerbot
               description: 'Edits an existing feed post',
               usage: "#{BOT.prefix}edit 1 new content",
               permission_level: 3,
-              min_args: 2) do |event, post_id, *content|
+              min_args: 1) do |event, post_id, *new_content|
         post_id = post_id.delete('#').to_i
 
         prefix_length = "#{BOT.prefix}edit #{post_id} ".length
         content = event.message.content[prefix_length..-1]
 
-        next 'Content too long' if content.length > 2048
-        next "Too many fields (#{fields.count} / 25)" if content.count('|') > 25
-
         post = Database::FeedPost.find id: post_id
         next 'Post not found with that ID..' unless post
         next 'This post has been deleted and cannot be edited.' unless post.message
+
+        if new_content.empty?
+          event.channel.send_embed("```#{post.content}```") do |e|
+            role = post.feed.role
+            e.description = "`from feed:` #{role.mention} `in` #{post.feed.channel.mention}"
+            e.color = role.color.combined
+          end
+
+          next
+        end
+
+        next 'Content too long' if content.length > 2048
+        next "Too many fields (#{fields.count} / 25)" if content.count('|') > 25
 
         post.update content: content, author_id: event.user.id
         post.update_post
@@ -163,25 +173,6 @@ module Powerbot
         event.channel.delete_messages [m, event.message]
 
         nil
-      end
-
-      # View a post's raw content, useful for updating
-      # posts with special markdown.
-      command(:raw,
-              description: 'View a feed posts raw content',
-              usage: "#{BOT.prefix}raw 1",
-              permission_level: 3,
-              help_available: false) do |event, post_id|
-        post_id = post_id.delete('#').to_i
-
-        post = Database::FeedPost.find id: post_id
-        next 'Post not found with that ID..' unless post
-
-        event.channel.send_embed("```#{post.content}```") do |e|
-          role = post.feed.role
-          e.description = "`from feed:` #{role.mention} `in` #{post.feed.channel.mention}"
-          e.color = role.color.combined
-        end
       end
     end
   end
