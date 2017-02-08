@@ -31,7 +31,7 @@ module Powerbot
         data = content.split '|'
 
         fields = data.map do |f|
-          Discordrb::Webhooks::Field.new(
+          Discordrb::Webhooks::EmbedField.new(
             name: "\u200b",
             value: f
           )
