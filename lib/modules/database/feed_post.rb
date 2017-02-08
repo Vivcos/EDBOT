@@ -6,6 +6,10 @@ module Powerbot
       def message
         feed.channel.message message_id
       end
+
+      def author
+        BOT.user author_id
+      end
     end
   end
 end
