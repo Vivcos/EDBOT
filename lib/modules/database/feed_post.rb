@@ -15,6 +15,15 @@ module Powerbot
         "🛰️ #{role.mention} **| #{title}**"
       end
 
+      def update_post
+        if message_id
+          message.edit "#{tagline} `updated: #{::Time.now.utc}`", parse_content
+        else
+          m = feed.channel.send_embed tagline, parse_content
+          update message_id: m.id
+        end
+      end
+
       def parse_content
         data = content.split '|'
 
