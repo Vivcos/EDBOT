@@ -30,7 +30,7 @@ module Powerbot
           fields: fields,
           color: feed.role.color.combined,
           footer: {
-            text: "#{author.distinct} [use 'pal.unsub #{feed.name}' to unsub]",
+            text: "#{author.distinct} [use 'pal.unsub #{feed.name}' to unsub] | ##{id}",
             icon_url: author.avatar_url
           },
           timestamp: Time.now
