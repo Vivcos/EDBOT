@@ -30,7 +30,7 @@ module Powerbot
       def parse_content
         data = content.split '|'
 
-        fields = data.map do |f|
+        fields = data[1..-1].map do |f|
           Discordrb::Webhooks::EmbedField.new(
             name: "\u200b",
             value: f
