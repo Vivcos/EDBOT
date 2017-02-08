@@ -19,7 +19,10 @@ module Powerbot
         if message_id
           message.edit "#{tagline} `updated: #{::Time.now.utc}`", parse_content
         else
+          feed.role.mentionable = true
           m = feed.channel.send_embed tagline, parse_content
+          feed.role.mentionable = false
+
           update message_id: m.id
         end
       end
