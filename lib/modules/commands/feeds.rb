@@ -161,6 +161,25 @@ module Powerbot
 
         nil
       end
+
+      # View a post's raw content, useful for updating
+      # posts with special markdown.
+      command(:raw,
+              description: 'View a feed posts raw content',
+              usage: "#{BOT.prefix}raw 1",
+              permission_level: 3,
+              help_available: false) do |event, post_id|
+        post_id = post_id.delete('#').to_i
+
+        post = Database::FeedPost.find id: post_id
+        next 'Post not found with that ID..' unless post
+
+        event.channel.send_embed("```#{post.content}```") do |e|
+          role = post.feed.role
+          e.description = "`from feed:` #{role.mention} `in` #{post.feed.channel.mention}"
+          e.color = role.color.combined
+        end
+      end
     end
   end
 end
