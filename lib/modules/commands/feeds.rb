@@ -139,10 +139,13 @@ module Powerbot
       command(:edit,
               description: 'Edits an existing feed post',
               usage: "#{BOT.prefix}edit 1 new content",
-              permission_level: 3) do |event, post_id, *content|
+              permission_level: 3,
+              min_args: 2) do |event, post_id, *content|
         post_id = post_id.delete('#').to_i
 
-        content = content.join ' '
+        prefix_length = "#{BOT.prefix}edit #{post_id} ".length
+        content = event.message.content[prefix_length..-1]
+
         next 'Content too long' if content.length > 2048
         next "Too many fields (#{fields.count} / 25)" if content.count('|') > 25
 
