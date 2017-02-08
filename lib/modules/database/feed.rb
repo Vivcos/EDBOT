@@ -1,6 +1,8 @@
 module Powerbot
   module Database
     class Feed < Sequel::Model
+      one_to_many :feed_posts
+
       def before_create
         role         = server.create_role
         role.name    = name
