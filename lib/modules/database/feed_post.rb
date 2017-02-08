@@ -11,6 +11,10 @@ module Powerbot
         BOT.user author_id
       end
 
+      def tagline
+        "🛰️ #{role.mention} **| #{title}**"
+      end
+
       def parse_content
         data = content.split '|'
 
