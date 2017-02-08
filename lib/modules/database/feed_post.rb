@@ -11,12 +11,10 @@ module Powerbot
         BOT.user author_id
       end
 
-      def parse_content(include_title = false)
+      def parse_content
         data = content.split '|'
 
-        range = include_title ? 1..-1 : 2..-1
-
-        fields = data[range].map do |f|
+        fields = data[2..-1].map do |f|
           Discordrb::Webhooks::Field.new(
             name: "\u200b",
             value: f
