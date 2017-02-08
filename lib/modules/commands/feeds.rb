@@ -149,7 +149,7 @@ module Powerbot
         post = Database::FeedPost.find id: post_id
         next 'Post not found with that ID..' unless post
 
-        post.update content: content
+        post.update content: content, author_id: event.user.id
         post.update_post
 
         m = event.respond '👌'
