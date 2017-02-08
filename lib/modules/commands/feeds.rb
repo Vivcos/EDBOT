@@ -148,6 +148,7 @@ module Powerbot
 
         post = Database::FeedPost.find id: post_id
         next 'Post not found with that ID..' unless post
+        next 'This post has been deleted and cannot be edited.' unless post.message
 
         post.update content: content, author_id: event.user.id
         post.update_post
