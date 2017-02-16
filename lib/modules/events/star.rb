@@ -7,8 +7,6 @@ module Powerbot
 
       # Star a message
       reaction_add(emoji: STAR_EMOJI) do |event|
-        # Below is fixed in a pull request
-        next unless event.emoji.name == STAR_EMOJI
         maybe_existing_star = Database::StarMessage.find(
           starred_channel_id: event.channel.id,
           starred_message_id: event.message.id
@@ -43,8 +41,6 @@ module Powerbot
 
       # Unstar a message
       reaction_remove(emoji: STAR_EMOJI) do |event|
-        # Below is fixed in a pull request
-        next unless event.emoji.name == STAR_EMOJI
         maybe_existing_star = Database::StarMessage.find(
           starred_channel_id: event.channel.id,
           starred_message_id: event.message.id
