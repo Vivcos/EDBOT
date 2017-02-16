@@ -29,7 +29,8 @@ module Powerbot
           star_message = Database::StarMessage.create(
             starred_channel_id: event.channel.id,
             starred_message_id: event.message.id,
-            channel_id: star_channel_id
+            channel_id: star_channel_id,
+            author_id: event.message.author.id
           )
 
           star_message.add_star user_id: event.user.id
