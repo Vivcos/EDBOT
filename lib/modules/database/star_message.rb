@@ -31,7 +31,7 @@ module Powerbot
         stars.count
       end
 
-      def user_rep(id)
+      def self.user_rep(id)
         where(author_id: id).all.map(&:rep).reduce(:+)
       end
 
