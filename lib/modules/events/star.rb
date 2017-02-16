@@ -101,6 +101,12 @@ module Powerbot
 
         e.image = { url: message.attachments.first.url } if message.attachments.any?
 
+        unless e.image
+          uris = URI.extract message.content
+
+          e.image = { url: uris.first } if uris.any?
+        end
+
         e
       end
     end
