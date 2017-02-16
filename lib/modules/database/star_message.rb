@@ -31,6 +31,10 @@ module Powerbot
         stars.count
       end
 
+      def user_rep(id)
+        where(author_id: id).all.map(&:rep).reduce(:+)
+      end
+
       def star_by(user_id)
         stars.find { |s| s.user_id == user_id }
       end
