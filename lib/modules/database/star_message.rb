@@ -32,7 +32,7 @@ module Powerbot
       end
 
       def self.user_rep(id)
-        where(author_id: id).all.map(&:rep).reduce(:+)
+        where(author_id: id).all.map(&:rep).reduce(:+) || 0
       end
 
       def star_by(user_id)
