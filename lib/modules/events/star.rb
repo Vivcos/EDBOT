@@ -7,8 +7,8 @@ module Powerbot
 
       # Star a message
       reaction_add(emoji: STAR_EMOJI) do |event|
-        # Below is fixed in a pull request
-        next unless event.emoji.name == STAR_EMOJI
+        next if event.message.author == event.user
+
         maybe_existing_star = Database::StarMessage.find(
           starred_channel_id: event.channel.id,
           starred_message_id: event.message.id
@@ -18,9 +18,6 @@ module Powerbot
           maybe_existing_star.add_star user_id: event.user.id unless maybe_existing_star.starred_by?(event.user)
           update_star(maybe_existing_star)
         else
-
-          next if event.message.author == event.user
-
           channel_options = Database::Metadata[event.channel.id]&.read
           server_options = Database::Metadata[event.channel.server.id]&.read
 
@@ -32,7 +29,8 @@ module Powerbot
           star_message = Database::StarMessage.create(
             starred_channel_id: event.channel.id,
             starred_message_id: event.message.id,
-            channel_id: star_channel_id
+            channel_id: star_channel_id,
+            author_id: event.message.author.id
           )
 
           star_message.add_star user_id: event.user.id
@@ -43,8 +41,6 @@ module Powerbot
 
       # Unstar a message
       reaction_remove(emoji: STAR_EMOJI) do |event|
-        # Below is fixed in a pull request
-        next unless event.emoji.name == STAR_EMOJI
         maybe_existing_star = Database::StarMessage.find(
           starred_channel_id: event.channel.id,
           starred_message_id: event.message.id
@@ -104,6 +100,12 @@ module Powerbot
         )
 
         e.image = { url: message.attachments.first.url } if message.attachments.any?
+
+        unless e.image
+          uris = URI.extract message.content
+
+          e.image = { url: uris.first } if uris.any?
+        end
 
         e
       end

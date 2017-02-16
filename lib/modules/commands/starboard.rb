@@ -52,6 +52,17 @@ module Powerbot
 
         event.message.delete
       end
+
+      command(:rep,
+              description: 'Shows your total starboard rep',
+              usage: "#{BOT.prefix}rep") do |event|
+        rep = Database::StarMessage.user_rep(event.user.id)
+        event.channel.send_embed do |e|
+          e.author = { name: event.user.display_name, icon_url: event.user.avatar_url }
+          e.description = "\u2b50 **#{rep}**"
+          e.color = 0xf7a631
+        end
+      end
     end
   end
 end

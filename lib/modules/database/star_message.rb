@@ -23,8 +23,16 @@ module Powerbot
         channel.message(message_id)
       end
 
+      def author
+        BOT.user author_id
+      end
+
       def rep
         stars.count
+      end
+
+      def self.user_rep(id)
+        where(author_id: id).all.map(&:rep).reduce(:+) || 0
       end
 
       def star_by(user_id)
