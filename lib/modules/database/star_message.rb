@@ -23,6 +23,10 @@ module Powerbot
         channel.message(message_id)
       end
 
+      def author
+        BOT.user author_id
+      end
+
       def rep
         stars.count
       end
