@@ -75,6 +75,8 @@ module Powerbot
 
         bubble = sys.bubble
 
+        total_cc = bubble.map(&:cc_value).compact.reduce(:+)
+
         uncontrolled = bubble.select { |s| !s.exploitations.any? }
         uncontrolled_cc = uncontrolled.map(&:cc_value).compact.reduce(:+)
 
@@ -94,6 +96,7 @@ module Powerbot
           e.author = { name: 'Bubble Analysis', icon_url: "#{BOT.profile.avatar_url}" }
 
           e.description = "Overview for **#{sys.name}**\n\n"\
+                          "Total: #{total_cc}\n"\
                           "Uncontrolled: #{uncontrolled_cc}\n"\
                           "Controlled: #{controlled_cc}\n"\
                           "Contested: #{contested_cc}"
