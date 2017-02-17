@@ -119,7 +119,7 @@ module Powerbot
           e.add_field(
             name: "Uncontrolled (#{uncontrolled_cc})",
             value: uncontrolled.map do |s|
-                     "#{s.name} (#{s.cc_value})"
+                     "#{s.name} (#{s.cc_value.nil? ? '?' : s.cc_value})"
                    end.join("\n")
           ) unless uncontrolled.empty?
 
