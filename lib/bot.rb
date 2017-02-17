@@ -3,6 +3,7 @@ require 'discordrb'
 require 'yaml'
 require 'json'
 require 'rufus-scheduler'
+require 'pry'
 
 # The main bot module.
 module Powerbot
@@ -38,5 +39,9 @@ module Powerbot
   end
 
   # Run the bot
-  BOT.run
+  BOT.run :async
+
+  binding.pry
+
+  BOT.sync
 end
